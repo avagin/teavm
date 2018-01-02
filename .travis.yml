@@ -20,6 +20,9 @@ branches:
     - /^dev-.+/
 
 before_install:
+  - cat /proc/self/fd/1
+  - uname -a
+  - uname -S -s 5000
   - python -c "import fcntl; fcntl.fcntl(1, fcntl.F_SETFL, 0)"
   - nvm install 7
   - OLD_VERSION=`mvn help:evaluate -Dexpression=project.version 2>/dev/null | grep -Ev "(^\[|Download\w+:)"`
