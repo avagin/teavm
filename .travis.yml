@@ -20,15 +20,17 @@ branches:
     - /^dev-.+/
 
 before_install:
-  - cat /proc/self/fd/1
-  - uname -a
-  - uname -S -s 5000
+  - cat /proc/self/fdinfo/1
+  - ulimit -a
+  - ulimit -S -s 5000
   - python -c "import fcntl; fcntl.fcntl(1, fcntl.F_SETFL, 0)"
   - nvm install 7
   - OLD_VERSION=`mvn help:evaluate -Dexpression=project.version 2>/dev/null | grep -Ev "(^\[|Download\w+:)"`
   - NEW_VERSION=${OLD_VERSION%-SNAPSHOT}-dev-`printf %d $TRAVIS_BUILD_NUMBER`
   - export NEW_VERSION
   - echo "Building version $NEW_VERSION"
+  - ulimit -a
+  - ulimit -S -s 5000
   - mvn versions:set -DnewVersion=$NEW_VERSION
 
 install:
