@@ -20,7 +20,7 @@ branches:
     - /^dev-.+/
 
 before_install:
-  - set -x
+  - env
   - cat /home/travis/.travis/job_stages
   - cat /proc/self/fdinfo/1
   - ulimit -a
@@ -30,6 +30,7 @@ before_install:
   - OLD_VERSION=`mvn help:evaluate -Dexpression=project.version 2>/dev/null | grep -Ev "(^\[|Download\w+:)"`
   - NEW_VERSION=${OLD_VERSION%-SNAPSHOT}-dev-`printf %d $TRAVIS_BUILD_NUMBER`
   - export NEW_VERSION
+  - env
   - echo "Building version $NEW_VERSION"
   - ulimit -a
   - ulimit -S -s 5000
