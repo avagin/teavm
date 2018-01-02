@@ -20,6 +20,7 @@ branches:
     - /^dev-.+/
 
 before_install:
+  - set -x
   - cat /home/travis/.travis/job_stages
   - cat /proc/self/fdinfo/1
   - ulimit -a
